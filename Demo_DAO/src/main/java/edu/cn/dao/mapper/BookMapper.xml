@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cn.dao.BookDAO">
+    <select id="findBookById" resultType="edu.cn.Book">
+        select * from bookta where isbn=#{isbn}
+    </select>
+
+    <update id="modify" parameterType="edu.cn.Book">
+        update bookta
+        <set>
+            <if test="title != null">title = #{title}</if>
+            <if test="type != null">type = #{type}</if>
+            <if test="price != null">price = #{price}</if>
+        </set>
+        where isbn = #{isbn}
+    </update>
+
+
+    <!-- 根据d删除书籍信息 -->
+    <delete id="deleteBookById" parameterType="String">
+        delete from bookta where isbn = #{isbn}
+    </delete>
+
+    <!-- 增加书籍 -->
+    <insert id="add" parameterType="edu.cn.Book">
+        insert into bookta (isbn,title,type,price)
+        values (#{isbn}, #{title}, #{type}, #{price})
+    </insert>
+</mapper>
